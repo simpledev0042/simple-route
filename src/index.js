@@ -4,17 +4,18 @@ const { GET, POST, PUT, DELETE, ALL, RouteObject } = require("./RouteObject")
 
 class Route {
     router;
-    constructor(){
+    constructor( route = new RouteObject()){
         this.router = express.Router();
-        const nChilds = arguments.length;
-        for( let i = 0; i < nChilds; i ++ ) {
-            const child = arguments[i];
-            this.generate(
-                child,
-                [], 
-                []
-            );
-        }
+        this.generate(
+            route,
+            [], 
+            []
+        );
+    }
+
+    static create({path = "", middlewares = [], method = GET, func = (req, res) => {}, childs = []}) {
+        const obj = new Route(new RouteObject(path, middlewares, method, func, childs));
+        return obj;
     }
 
     generate (routeObj = new RouteObject(), cm = [], cr = []) {
@@ -58,6 +59,10 @@ class Route {
         let res = routes.join("/");
         while(res.indexOf("//") >= 0) res = res.replace("//", "/");
         return res;
+    }
+
+    use(app, path = "") {
+        app.use(path, this.router);
     }
 }
 

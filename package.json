@@ -18,5 +18,9 @@
     "easy",
     "useful",
     "object"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simpledev0042/simple-route.git"
+  }
 }

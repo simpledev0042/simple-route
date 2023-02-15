@@ -21,7 +21,7 @@ const token = (req, res, next) => {
     return next()
 }
 
-const routes = new Route({
+const routes = route.create({
     path: "/user",
     middlewares: [auth],
     method: GET,
@@ -45,7 +45,8 @@ const routes = new Route({
 ```
 const express = require('express');
 const app = express();
-app.use("", routes.router);
+routes.use(app);
+routes.use(app, "api");
 ```
 
 
