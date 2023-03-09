@@ -25,21 +25,23 @@ class Route {
         const rs = [...cr, routeObj.path];
         const r = this.generateRoute( rs );
         console.log( r )
-        switch (routeObj.method) {
-            case GET:
-                this.router.get(r, ...ms, routeObj.func);
-                break;
-            case POST:
-                this.router.post(r, ...ms, routeObj.func);
-                break;
-            case PUT:
-                this.router.put(r, ...ms, routeObj.func);
-            case DELETE:
-                router.delete(r, ...ms, routeObj.func);
-            case ALL:
-                this.router.all(r, ...ms, routeObj.func);
-            default:
-                break;
+        if( routeObj.func ) {
+            switch (routeObj.method) {
+                case GET:
+                    this.router.get(r, ...ms, routeObj.func);
+                    break;
+                case POST:
+                    this.router.post(r, ...ms, routeObj.func);
+                    break;
+                case PUT:
+                    this.router.put(r, ...ms, routeObj.func);
+                case DELETE:
+                    router.delete(r, ...ms, routeObj.func);
+                case ALL:
+                    this.router.all(r, ...ms, routeObj.func);
+                default:
+                    break;
+            }
         }
         if( routeObj.childs ) {
             const nChilds = routeObj.childs.length;
